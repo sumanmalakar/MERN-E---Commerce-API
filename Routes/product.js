@@ -6,6 +6,7 @@ import {
   getProductById,
   updaeteProductById,
 } from "../Controllers/products.js";
+import {Authenticate} from '../Middlewares/auth.js'
 
 const router = express.Router();
 
@@ -22,6 +23,6 @@ router.get("/:id", getProductById);
 router.put("/:id", updaeteProductById);
 
 // delete product by Id
-router.delete("/:id",deleteProductById)
+router.delete("/:id",Authenticate,deleteProductById)
 
 export default router;

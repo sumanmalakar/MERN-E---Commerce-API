@@ -43,7 +43,7 @@ export const login = async (req, res) => {
 // all users
 export const getAllUsers = async (req, res) => {
   try {
-    let users = await User.find();
+    let users = await User.find().sort({ createdAt :-1});
     if (!users) return res.json({ message: "No user find", users, success: false });
     res.json({ message: "All users ", users });
   } catch (error) {

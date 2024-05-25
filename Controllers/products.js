@@ -48,11 +48,17 @@ export const updaeteProductById = async (req, res) => {
 // delete product by Id
 export const deleteProductById = async (req, res) => {
   let id = req.params.id;
-  try {
-    let product = await Product.findByIdAndDelete(id);
-    if (!product) return res.json({ message: "Invalid Id" });
-    res.json({ message: "Product Deleted Successfully", product });
-  } catch (error) {
-    res.json({ message: error });
-  }
+  let user = req.user
+
+  // console.log("user = ",user)
+
+  if (user.email != "admin@gmail.com") return res.json({message:"You are not athorize to delete",success: false})
+    try {
+      let product = await Product.findByIdAndDelete(id);
+      if (!product) return res.json({ message: "Invalid Id" });
+      res.json({ message: "Product Deleted Successfully", product });
+      // res.json({message:'deleted'})
+    } catch (error) {
+      res.json({ message: error });
+    }
 };
